@@ -127,7 +127,7 @@
       <script>
         // Промокод алу функциясы
         function getPromoCode(testName) {
-          fetch(`http://localhost:3000/getPromoCode/${testName}`)
+          fetch(`https://new-mock-test-promo-eduser.onrender.com/getPromoCode/${testName}`)
             .then(response => response.json())
             .then(data => {
               const promoElement = document.getElementById(testName); // Әр тестке арналған span элементі
