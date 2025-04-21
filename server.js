@@ -17,6 +17,9 @@ app.get('/getPromoCode/:testName', (req, res) => {
     const testName = req.params.testName;
     const filePath = path.join(__dirname, 'data', 'mock_test_promo.xlsx'); // Excel файлының жолы
 
+    // Логируем путь к файлу перед его обработкой
+    console.log("Путь к файлу Excel:", filePath);
+
     // Excel файлын оқу
     const workbook = xlsx.readFile(filePath);
     const sheetNames = workbook.SheetNames; // Барлық парақтардың аттары
@@ -36,6 +39,9 @@ app.get('/getPromoCode/:testName', (req, res) => {
             promoCodeFound = promoCodes.find(code => code); // Өшірілген емес промокодты табу
 
             if (promoCodeFound) {
+                // Логируем найденный промокод
+                console.log("Изменённый промокод: ", promoCodeFound);
+
                 // Промокодты қайтару
                 res.json({ promoCode: promoCodeFound });
 
@@ -43,10 +49,22 @@ app.get('/getPromoCode/:testName', (req, res) => {
                 const promoRowIndex = data.findIndex(row => row[columnIndex] === promoCodeFound);
                 data[promoRowIndex][columnIndex] = 'Өшірілген'; // Өшірілген деп белгілеу
 
+                // Логируем данные перед записью в файл
+                console.log("Данные перед записью в файл: ", data);
+
                 // Жаңартылған деректерді қайта жазу
                 const updatedSheet = xlsx.utils.aoa_to_sheet(data);
                 workbook.Sheets[sheetName] = updatedSheet;
-                xlsx.writeFile(workbook, filePath); // Excel файлын қайта жазу
+
+                // Записываем обновленный файл
+                try {
+                    xlsx.writeFile(workbook, filePath); // Excel файлын қайта жазу
+                    console.log("Файл успешно обновлён и сохранён:", filePath); // Лог записи
+                } catch (error) {
+                    console.error('Ошибка при записи файла:', error);
+                    res.status(500).send('Ошибка при записи файла.');
+                    return;
+                }
                 return;
             }
         }
@@ -54,6 +72,7 @@ app.get('/getPromoCode/:testName', (req, res) => {
 
     // Егер промокод табылмаса
     if (!promoCodeFound) {
+        console.log(`Промокод "${testName}" не найден или уже был удалён.`);
         res.status(404).send('Промокод жоқ немесе өшірілген');
     }
 });
