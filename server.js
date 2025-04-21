@@ -47,8 +47,8 @@ app.get('/getPromoCode/:testName', (req, res) => {
                     const updatedSheet = xlsx.utils.aoa_to_sheet(data);
                     workbook.Sheets[sheetName] = updatedSheet;
 
-                    // Попробуем записать файл в другой путь для проверки
-                    const updatedFilePath = path.join(__dirname, 'data', 'updated_mock_test_promo.xlsx');
+                    // Записываем файл
+                    const updatedFilePath = path.join(__dirname, 'data', 'mock_test_promo.xlsx');
                     xlsx.writeFile(workbook, updatedFilePath);
 
                     console.log("Файл успешно обновлён и сохранён в: ", updatedFilePath);
