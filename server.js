@@ -1,6 +1,7 @@
 const express = require('express');
 const xlsx = require('xlsx');
 const path = require('path');
+const { exec } = require('child_process'); // Для выполнения git команд
 const app = express();
 const port = 3000;
 
@@ -15,9 +16,6 @@ app.get('/getPromoCode/:testName', (req, res) => {
     const testName = req.params.testName;
     const filePath = path.join(__dirname, 'data', 'mock_test_promo.xlsx'); // Excel файлының жолы
 
-    // Логируем путь к файлу
-    console.log("Путь к файлу Excel перед чтением:", filePath);
-
     try {
         // Чтение файла
         const workbook = xlsx.readFile(filePath);
@@ -29,18 +27,12 @@ app.get('/getPromoCode/:testName', (req, res) => {
             const sheet = workbook.Sheets[sheetName];
             const data = xlsx.utils.sheet_to_json(sheet, { header: 1 });
 
-            console.log(`Тест атауы: ${testName}`);
-            console.log(`Бағандар: ${data[0]}`); 
-
             const columnIndex = data[0].indexOf(testName);
             if (columnIndex !== -1) {
                 const promoCodes = data.slice(1).map(row => row[columnIndex]).filter(code => code && code !== 'Өшірілген');
                 promoCodeFound = promoCodes.find(code => code); // Өшірілген емес промокодты табу
 
                 if (promoCodeFound) {
-                    // Логируем найденный промокод
-                    console.log("Изменённый промокод: ", promoCodeFound);
-
                     // Промокодты қайтару
                     res.json({ promoCode: promoCodeFound });
 
@@ -60,6 +52,10 @@ app.get('/getPromoCode/:testName', (req, res) => {
                     xlsx.writeFile(workbook, updatedFilePath);
 
                     console.log("Файл успешно обновлён и сохранён в: ", updatedFilePath);
+
+                    // Отправляем изменения в GitHub после изменения Excel
+                    updateExcelFile();
+
                     return;
                 }
             }
@@ -75,6 +71,45 @@ app.get('/getPromoCode/:testName', (req, res) => {
         res.status(500).send('Ошибка при обработке Excel файла.');
     }
 });
+
+// Функция для отправки изменений в GitHub
+const updateExcelFile = () => {
+    exec('git add data/mock_test_promo.xlsx', (error, stdout, stderr) => {
+        if (error) {
+            console.error(`Ошибка при добавлении файла: ${error.message}`);
+            return;
+        }
+        if (stderr) {
+            console.error(`stderr: ${stderr}`);
+            return;
+        }
+
+        // Делаем commit
+        exec('git commit -m "Обновление промокодов в Excel файле"', (error, stdout, stderr) => {
+            if (error) {
+                console.error(`Ошибка при commit: ${error.message}`);
+                return;
+            }
+            if (stderr) {
+                console.error(`stderr: ${stderr}`);
+                return;
+            }
+
+            // Отправляем изменения на GitHub
+            exec('git push origin master', (error, stdout, stderr) => {
+                if (error) {
+                    console.error(`Ошибка при push: ${error.message}`);
+                    return;
+                }
+                if (stderr) {
+                    console.error(`stderr: ${stderr}`);
+                    return;
+                }
+                console.log('Изменения успешно отправлены на GitHub');
+            });
+        });
+    });
+};
 
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
