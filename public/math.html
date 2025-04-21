@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Промокод тарату жүйесі</title>
+
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Математика тесттері</h1>
+    </header>
+
+    <div class="main-page-container">
+      <div class="main-page-btn">
+        <a href="index.html">
+          <button class="main-btn">Басты бетке қайту</button>
+        </a>
+      </div>
+    </div>
+
+    <div class="container">
+      <!-- Test Cards -->
+
+      <div class="test-card">
+        <h3>Математика. Жаңа база сұрақтары. Нұсқа 012</h3>
+        <button class="button" onclick="getPromoCode('math-test-896')">
+          Промокод алу
+        </button>
+        <span id="math-test-896"></span>
+        <hr>
+        <a href="https://eduser.app/tests/896" target="_blank">
+          <span>Тест сілтемесі</span>
+        </a>
+      </div>
+      
+<!--       <div class="test-card">
+        <h3>Тест</h3>
+        <button class="button" onclick="getPromoCode('math-test-1')">
+          Промокод алу
+        </button>
+        <span id="math-test-1"></span>
+        <hr>
+        <a href="#" target="_blank">
+          <span>Тест сілтемесі</span>
+        </a>
+      </div>
+
+      <div class="test-card">
+        <h3>Тест</h3>
+        <button class="button" onclick="getPromoCode('math-test-1')">
+          Промокод алу
+        </button>
+        <span id="math-test-1"></span>
+        <hr>
+        <a href="#" target="_blank">
+          <span>Тест сілтемесі</span>
+        </a>
+      </div>
+
+      <div class="test-card">
+        <h3>Тест</h3>
+        <button class="button" onclick="getPromoCode('math-test-1')">
+          Промокод алу
+        </button>
+        <span id="math-test-1"></span>
+        <hr>
+        <a href="#" target="_blank">
+          <span>Тест сілтемесі</span>
+        </a>
+      </div>
+
+
+      <div class="test-card">
+        <h3>Тест</h3>
+        <button class="button" onclick="getPromoCode('math-test-1')">
+          Промокод алу
+        </button>
+        <span id="math-test-1"></span>
+        <hr>
+        <a href="#" target="_blank">
+          <span>Тест сілтемесі</span>
+        </a>
+      </div>
+
+      <div class="test-card">
+        <h3>Тест</h3>
+        <button class="button" onclick="getPromoCode('math-test-1')">
+          Промокод алу
+        </button>
+        <span id="math-test-1"></span>
+        <hr>
+        <a href="#" target="_blank">
+          <span>Тест сілтемесі</span>
+        </a>
+      </div>
+
+      <div class="test-card">
+        <h3>Тест</h3>
+        <button class="button" onclick="getPromoCode('math-test-1')">
+          Промокод алу
+        </button>
+        <span id="math-test-1"></span>
+        <hr>
+        <a href="#" target="_blank">
+          <span>Тест сілтемесі</span>
+        </a>
+      </div>
+
+      <div class="test-card">
+        <h3>Тест</h3>
+        <button class="button" onclick="getPromoCode('math-test-1')">
+          Промокод алу
+        </button>
+        <span id="math-test-1"></span>
+        <hr>
+        <a href="#" target="_blank">
+          <span>Тест сілтемесі</span>
+        </a>
+      </div>
+ -->
+
+
+      <script>
+        // Промокод алу функциясы
+        function getPromoCode(testName) {
+          fetch(`https://new-mock-test-promo-eduser.onrender.com/getPromoCode/${testName}`)
+            .then(response => response.json())
+            .then(data => {
+              const promoElement = document.getElementById(testName); // Әр тестке арналған span элементі
+  
+              if (data.promoCode) {
+                promoElement.innerText = `Промокод: ${data.promoCode}`;
+              } else {
+                promoElement.innerText = "Промокод алу мүмкін емес";
+              }
+            })
+            .catch(error => {
+              console.error("Қате:", error);
+              document.getElementById(testName).innerText = "Промокод алу мүмкін емес";
+            });
+        }
+  
+      </script>
+
+  </body>
+</html>

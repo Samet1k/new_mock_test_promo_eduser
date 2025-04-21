@@ -1,0 +1,156 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f5ff;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background-color: #0061f2;
+  padding: 20px;
+  text-align: center;
+  color: white;
+}
+
+header h1 {
+  margin: 0;
+}
+
+.tests-page-header {
+  background-color: #0061f2;
+  padding: 20px;
+  text-align: center;
+  color: white;
+}
+
+.main-page-container {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    justify-content: center;
+}
+
+.main-page-btn {
+  background-color: white;
+  width: 250px;
+  padding: 20px 50px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.main-btn {
+    background-color: #0061f2;
+    color: white;
+    padding: 20px 50px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px;
+  justify-content: center;
+}
+
+.subject-card {
+  background-color: white;
+  width: 250px;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.subject-card:hover {
+  transform: translateY(-10px);
+}
+
+.subject-card h3 {
+  color: #333;
+}
+
+.subject-card p {
+  color: #777;
+  font-size: 14px;
+  margin: 5px 0;
+}
+
+.button {
+  background-color: #0061f2;
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #004bb5;
+}
+
+.subject-card span {
+  display: block;
+  margin-top: 15px;
+  font-weight: bold;
+  font-size: 18px;
+  color: #0061f2;
+}
+
+
+.test-card {
+    background-color: white;
+    width: 250px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease;
+  }
+  
+  .test-card:hover {
+    transform: translateY(-10px);
+  }
+  
+  .test-card h3 {
+    color: #333;
+  }
+  
+  .test-card p {
+    color: #777;
+    font-size: 14px;
+    margin: 5px 0;
+  }
+  
+  .button {
+    background-color: #0061f2;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .button:hover {
+    background-color: #004bb5;
+  }
+  
+  .test-card span {
+    display: block;
+    margin-top: 15px;
+    font-weight: bold;
+    font-size: 18px;
+    color: #0061f2;
+  }
+  
+
+  a {
+    text-decoration: none;
+  }
